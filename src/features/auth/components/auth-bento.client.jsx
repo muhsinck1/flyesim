@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { GoogleLogo } from "@/components/media/google-logo";
 
 export function AuthBento() {
   const [show, setShow] = useState(false);
@@ -15,7 +16,8 @@ export function AuthBento() {
         <p className="mt-2 text-sm text-muted-foreground">
           Access your eSIMs, orders, and top-ups.
         </p>
-        <Button variant="secondary" size="md" className="mt-6 w-full">
+        <Button variant="secondary" size="md" className="mt-6 w-full gap-2">
+          <GoogleLogo />
           Continue with Google
         </Button>
         <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">

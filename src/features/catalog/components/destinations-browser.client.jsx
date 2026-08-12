@@ -1,14 +1,13 @@
 "use client";
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Search, ArrowRight } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Search, ArrowRight, Star } from "lucide-react";
 import { CountryFlag } from "@/components/media/country-flag";
 import { cn } from "@/lib/cn";
 
 function badgeFor(c) {
-  if (c.homepageBadge === "popular") return { label: "Popular", tone: "highlight" };
-  if (c.homepageBadge === "best_value") return { label: "Best value", tone: "essential" };
+  if (c.homepageBadge === "popular") return { label: "Popular", className: "fill-highlight text-highlight" };
+  if (c.homepageBadge === "best_value") return { label: "Best value", className: "fill-cta text-cta" };
   return null;
 }
 
@@ -22,9 +21,9 @@ function DestinationCard({ c }) {
       <CountryFlag country={c} className="shrink-0 text-xl" />
       <span className="truncate font-display text-sm font-semibold uppercase">{c.name}</span>
       {badge ? (
-        <Badge tone={badge.tone} className="shrink-0">
-          {badge.label}
-        </Badge>
+        <Star className={cn("h-3.5 w-3.5 shrink-0", badge.className)} aria-label={badge.label}>
+          <title>{badge.label}</title>
+        </Star>
       ) : null}
       {c.perDayFrom ? (
         <span className="shrink-0 text-sm font-semibold text-cta">

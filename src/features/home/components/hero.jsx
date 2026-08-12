@@ -17,7 +17,7 @@ export function Hero({ chips, countries }) {
         aria-hidden
         className="pointer-events-none absolute -right-24 top-1/3 h-96 w-96 rounded-full bg-cta/10 blur-[120px]"
       />
-      <div className="relative mx-auto max-w-6xl px-6 pb-10 pt-28 md:pb-12 md:pt-36">
+      <div className="relative mx-auto max-w-6xl px-6 pb-6 pt-[4.5rem] md:pb-8 md:pt-24">
         <div className="relative rounded-[2.5rem] border border-secondary-container bg-gradient-to-br from-secondary-container/50 via-white/80 to-white/80 p-6 shadow-xl sm:p-8 md:p-10">
           <div className="grid items-center gap-8 lg:grid-cols-2">
             <div>

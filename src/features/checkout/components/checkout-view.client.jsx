@@ -6,6 +6,7 @@ import { useCart } from "@/features/cart/use-cart.client";
 import { Price } from "@/components/currency/price";
 import { Container } from "@/components/ui/container";
 import { EmptyState } from "@/components/feedback/empty-state";
+import { GoogleLogo } from "@/components/media/google-logo";
 import { routes } from "@/config/routes";
 
 /**
@@ -80,6 +81,7 @@ export function CheckoutView() {
                 type="button"
                 className="flex items-center justify-center gap-3 rounded-md border border-border bg-muted py-4 font-semibold text-foreground hover:bg-muted"
               >
+                <GoogleLogo />
                 Continue with Google
               </button>
               <label className="block">

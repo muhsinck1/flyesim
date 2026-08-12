@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { Apple, PlayCircle } from "lucide-react";
+import { AppStoreBadge, GooglePlayBadge } from "@/components/media/store-badges";
 import nav from "@/content/nav.json";
 import site from "@/content/site.json";
 
-const APP_STORE_ICONS = {
-  "App Store": Apple,
-  "Google Play": PlayCircle,
+const APP_STORE_BADGES = {
+  "App Store": AppStoreBadge,
+  "Google Play": GooglePlayBadge,
 };
 
 export function Footer() {
@@ -20,16 +20,8 @@ export function Footer() {
             <p className="mt-3 max-w-xs text-body-sm text-muted-foreground">{site.tagline}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {site.appStores.map((a) => {
-                const Icon = APP_STORE_ICONS[a.label];
-                return (
-                  <span
-                    key={a.label}
-                    className="inline-flex items-center gap-2 rounded-lg bg-foreground px-3 py-2 text-background"
-                  >
-                    {Icon ? <Icon className="h-4 w-4 shrink-0" aria-hidden /> : null}
-                    <span className="text-xs font-semibold">{a.label}</span>
-                  </span>
-                );
+                const Badge = APP_STORE_BADGES[a.label];
+                return Badge ? <Badge key={a.label} /> : null;
               })}
             </div>
           </div>
