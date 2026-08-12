@@ -9,7 +9,6 @@ import { Testimonials } from "@/features/home/components/testimonials.client";
 import { CtaBand } from "@/features/home/components/cta-band";
 import { StatsBand } from "@/features/home/components/stats-band";
 import { Faq } from "@/features/home/components/faq";
-import { AppCta } from "@/features/home/components/app-cta";
 import { Reveal } from "@/components/motion/reveal.client";
 import { getAllCountries, getHomeDestinations } from "@/server/catalog/repository";
 
@@ -39,7 +38,6 @@ export default function HomePage() {
       <CtaBand />
       <StatsBand />
       <Reveal><Faq /></Reveal>
-      <Reveal><AppCta /></Reveal>
     </>
   );
 }
