@@ -48,6 +48,18 @@ export function AuthCard({ mode = "signin" }) {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
+        {isSignup ? (
+          <label className="block">
+            <span className="mb-1 block text-label-bold text-foreground">Full name</span>
+            <input
+              required
+              type="text"
+              name="name"
+              placeholder="Jordan Lee"
+              className="w-full rounded-sm border border-border bg-muted px-4 py-3 text-body-md outline-none focus:border-primary"
+            />
+          </label>
+        ) : null}
         <label className="block">
           <span className="mb-1 block text-label-bold text-foreground">Email address</span>
           <input

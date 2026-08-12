@@ -1,12 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ShoppingBag, ArrowRight } from "lucide-react";
+import { ShoppingBag, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useCart } from "@/features/cart/use-cart.client";
 import { Price } from "@/components/currency/price";
 import { Container } from "@/components/ui/container";
 import { EmptyState } from "@/components/feedback/empty-state";
 import { GoogleLogo } from "@/components/media/google-logo";
+import { EmailOtpVerify } from "@/features/auth/components/email-otp-verify.client";
+import { cn } from "@/lib/cn";
 import { routes } from "@/config/routes";
 
 /**
@@ -16,6 +18,7 @@ import { routes } from "@/config/routes";
  */
 export function CheckoutView() {
   const [mounted, setMounted] = useState(false);
+  const [identity, setIdentity] = useState(null);
   const item = useCart((s) => s.item);
   useEffect(() => setMounted(true), []);
 
@@ -76,25 +79,35 @@ export function CheckoutView() {
 
           <section className="rounded-lg border border-border bg-card p-8">
             <h2 className="mb-6 font-display text-headline-md text-foreground">1. Your identity</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <button
-                type="button"
-                className="flex items-center justify-center gap-3 rounded-md border border-border bg-muted py-4 font-semibold text-foreground hover:bg-muted"
-              >
-                <GoogleLogo />
-                Continue with Google
-              </button>
-              <label className="block">
-                <span className="sr-only">Email address</span>
-                <input
-                  type="email"
-                  placeholder="Email address"
-                  className="w-full rounded-md border border-border bg-muted px-4 py-4 text-body-md outline-none focus:border-primary"
-                />
-              </label>
-            </div>
+            {identity ? (
+              <div className="flex items-center gap-3 rounded-md bg-success-text/10 p-4 text-success-text">
+                <CheckCircle2 size={20} aria-hidden className="shrink-0" />
+                <p className="text-body-sm">
+                  Verified as <span className="font-semibold">{identity.name}</span> ({identity.email})
+                </p>
+              </div>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setIdentity({ name: "Google account", email: "your Google email" })}
+                  className="mb-4 flex w-full items-center justify-center gap-3 rounded-md border border-border bg-muted py-4 font-semibold text-foreground hover:bg-muted"
+                >
+                  <GoogleLogo />
+                  Continue with Google
+                </button>
+                <div className="mb-4 flex items-center gap-4">
+                  <span className="h-px flex-1 bg-border" />
+                  <span className="text-label-caps uppercase text-muted-foreground">
+                    or verify by email
+                  </span>
+                  <span className="h-px flex-1 bg-border" />
+                </div>
+                <EmailOtpVerify ctaLabel="Verify & continue" onVerified={setIdentity} />
+              </>
+            )}
             <p className="mt-3 text-body-sm text-muted-foreground">
-              Guest checkout — we'll email your eSIM QR code.
+              Guest checkout — we'll email your eSIM QR code once verified.
             </p>
           </section>
         </div>
@@ -120,12 +133,23 @@ export function CheckoutView() {
                 </dd>
               </div>
             </dl>
-            <Link
-              href={routes.payment()}
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-cta px-6 py-4 text-body-lg font-semibold text-cta-foreground transition-colors hover:brightness-110"
-            >
-              Proceed to payment <ArrowRight size={20} aria-hidden />
-            </Link>
+            {identity ? (
+              <Link
+                href={routes.payment()}
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-cta px-6 py-4 text-body-lg font-semibold text-cta-foreground transition-colors hover:brightness-110"
+              >
+                Proceed to payment <ArrowRight size={20} aria-hidden />
+              </Link>
+            ) : (
+              <span
+                className={cn(
+                  "flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-full bg-muted px-6 py-4 text-body-lg font-semibold text-muted-foreground",
+                )}
+                aria-disabled="true"
+              >
+                Verify your identity to continue
+              </span>
+            )}
             <p className="mt-3 text-center text-body-sm text-muted-foreground">
               Charged in USD. Prices shown in your currency are indicative.
             </p>
